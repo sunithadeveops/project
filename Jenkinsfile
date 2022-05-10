@@ -6,7 +6,7 @@ pipeline{
           echo "maven clean package"
         }
       }
-      stage("deploy to tomcat") {
+      stage('deploy to tomcat') {
         steps{
           echo"deploying tomcat in jenkins"
         }
