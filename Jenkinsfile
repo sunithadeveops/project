@@ -7,4 +7,12 @@ pipeline{
         }
       }
     }
-  } 
+    post {
+  success {
+      echo "this is success block"
+  }
+  failure {
+      echo "this is failure block"
+  }
+}
+  }
