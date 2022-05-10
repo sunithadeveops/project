@@ -1,9 +1,9 @@
 pipeline{
   agent any
     stages{
-      stage('maven build') {
+    stage('maven build') {
         steps{
-          echo "maven clean package"
+          sh "maven clean package"
         }
       }
       stage('deploy to tomcat') {
@@ -14,7 +14,7 @@ pipeline{
     }
   post{
     success{
-      archiveArtifacts artifacts: "target/*.war"
+      archiveArtifacts artifacts: 'target/*.war'
       cleanWs()
     }
   }
