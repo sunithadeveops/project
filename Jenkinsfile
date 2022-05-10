@@ -3,12 +3,12 @@ pipeline{
     stages{
     stage('maven build') {
         steps{
-          sh "maven clean package"
+          echo "maven clean package"
         }
       }
       stage('deploy to tomcat') {
         steps{
-          echo"deploying tomcat in jenkins"
+          echo "deploying tomcat in jenkins"
         }
       }
     }
