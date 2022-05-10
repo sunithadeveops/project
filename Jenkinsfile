@@ -1,9 +1,14 @@
 pipeline{
   agent any
     stages{
-      stage('maven demo') {
+      stage('maven build') {
         steps{
-          sh 'echo jenkins demo'
+          echo "maven clean package"
+        }
+      }
+      stage("deploy to tomcat") {
+        steps{
+          echo"deploying tomcat in jenkins"
         }
       }
     }
