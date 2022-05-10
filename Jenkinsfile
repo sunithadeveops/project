@@ -1,18 +1,18 @@
-pipeline{
+pipeline {
   agent any
-    stages{
+    stages {
     stage('maven build') {
         steps{
           echo "maven clean package"
         }
       }
       stage('deploy to tomcat') {
-        steps{
+        steps {
           echo "deploying tomcat in jenkins"
         }
       }
-      post{
-        success{
+      post {
+        succes s{
            archiveArtifacts artifacts:'target/*.war'
            cleanWs()
         }
