@@ -1,21 +1,32 @@
-pipeline{
-  agent any
-    stages{
-    stage('maven build') {
-        steps{
-          sh "maven clean package"
-        }
+pipeline {
+  agent {
+        label 'linux'
+    }
+
+    stages {
+      stage('Maven Build') {
+        steps {
+          sh 'mvn clean package'
       }
-      stage('deploy to tomcat') {
-        steps{
-          echo"deploying tomcat in jenkins"
+    }
+     stage('Deploy to Tomcat') {
+      steps {
+        sshagent(['tomcat']) {
+            // Copy war file to tomcat server
+            sh 'scp -o StrictHostKeyChecking=no target/*.war ec2-user@3.109.157.105:/opt/tomcat8/webapps/app.war'
+            // stopt tomcat
+            sh "ssh ec2-user@3.109.157.105 /opt/tomcat8/bin/shutdown.sh"
+            // start tomcat
+            sh "ssh ec2-user@3.109.157.105 /opt/tomcat8/bin/startup.sh"
         }
       }
     }
-  post{
-    success{
+  }
+  post {
+    success {
       archiveArtifacts artifacts: 'target/*.war'
       cleanWs()
     }
   }
-} 
+}
+
