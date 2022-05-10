@@ -11,11 +11,5 @@ pipeline {
           echo "deploying tomcat in jenkins"
         }
       }
-      post {
-        succes s{
-           archiveArtifacts artifacts:'target/*.war'
-           cleanWs()
-        }
-      }  
     }
 } 
